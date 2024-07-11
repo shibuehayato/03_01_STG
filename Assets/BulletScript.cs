@@ -16,13 +16,22 @@ public class BulletScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+     
     }
 
     private void OnCollisionEnter(Collision other)
     {
         if(other.gameObject.tag == "Enemy")
         {
+            // ゲームマネージャーのスクリプトを獲得
+            GameObject gameManager; // GameObjectそのものが入る変数
+            GameManagerScript gameManagerScript; // Scriptが入る変数
+            gameManager = GameObject.Find("GameManager");
+            gameManagerScript = gameManager.GetComponent<GameManagerScript>();
+
+            // ゲームマネージャースクリプトの衝突判定を呼び出す
+            gameManagerScript.Hit(transform.position);
+
             Destroy(other.gameObject);
             Destroy(this.gameObject);
         }
